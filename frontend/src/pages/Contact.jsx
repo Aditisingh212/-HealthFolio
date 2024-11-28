@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -31,7 +32,7 @@ const Contact = () => {
       <div className="border border-primary max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="flex flex-col md:flex-row">
           {/* Left Section - Contact Details */}
-          <div className="bg-gradient-to-br from-green-600 to-green-800 text-white p-6 md:w-1/3">
+          <div className="bg-gradient-to-br from-green-800 to-green-600 text-white p-6 md:w-1/3">
             <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
             <p className="mb-4 text-sm text-gray-200">We'd love to hear from you! Reach out with your feedback or inquiries.</p>
             <div className="space-y-4 text-gray-100 text-sm">
@@ -42,7 +43,7 @@ const Contact = () => {
                 <strong>Phone:</strong> +91-78888-80XXX
               </p>
               <p>
-                <strong>Email:</strong> admin@prescripto.com
+                <strong>Email:</strong> admin@healthpholio.com
               </p>
             </div>
           </div>
