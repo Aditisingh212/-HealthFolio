@@ -223,8 +223,8 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-100 to-gray-300 min-h-screen py-12 px-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="min-h-screen py-12 px-6">
+      <div className="border border-primary max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
         <div className="flex flex-col md:flex-row">
           {/* Left Section - Contact Details */}
           <div className="bg-gradient-to-br from-green-600 to-green-800 text-white p-6 md:w-1/3">
