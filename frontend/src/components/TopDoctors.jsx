@@ -31,4 +31,3 @@ const TopDoctors = () => {
 }
 
 export default TopDoctors
-
