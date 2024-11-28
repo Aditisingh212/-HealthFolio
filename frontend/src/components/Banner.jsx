@@ -9,10 +9,11 @@ const Banner = () => {
       {/*-----Left Side-----*/}
       <div className="flex-1 py-8 sm:py-10 md:py-16 lg:py-24 lg:pl-5">
         <div className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-semibold text-white">
-          <p>Book Appointment</p>
-          <p className="mt-4">With 100+ Trusted Doctors</p>
+          <p>Reserve a Consultation </p>
+          <p className="mt-4"> With Certified Doctors Now</p>
         </div>
-        <button onClick={()=>{navigate('/login/');scrollTo(0,0)}}  className="bg-white text-sm sm:text-base text-gray-600 px-8 py-3 rounded-md mt-6 hover:scale-105 transition-all">Create Account</button>
+        <p className="text-sm sm:text-sm md:text-sm lg:text-sm pt-3 text-white">Discover a wide network of experienced and reliable healthcare professionals.</p>
+        <button onClick={()=>{navigate('/login/');scrollTo(0,0)}}  className="bg-white text-sm sm:text-base text-gray-600 px-8 py-2 rounded-md mt-4 hover:scale-105 transition-all">Create Account</button>
       </div>
 
       {/*-----Right Side-----*/}
