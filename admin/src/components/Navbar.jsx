@@ -1,42 +1,34 @@
-import React, { useContext } from 'react';
-import { assets } from '../assets/assets';
-import { AdminContext } from '../context/AdminContext';
-import { useNavigate } from 'react-router-dom';
-import { DoctorContext } from '../context/DoctorContext';
+import React, { useContext } from 'react'
+import { assets } from '../assets/assets'
+import { AdminContext } from '../context/AdminContext'
+import { useNavigate } from 'react-router-dom'
+import { DoctorContext } from '../context/DoctorContext'
 
 const Navbar = () => {
-  const { aToken, setAToken } = useContext(AdminContext);
-  const { dToken, setDToken } = useContext(DoctorContext);
 
-  const navigate = useNavigate();
+    const {aToken,setAToken}=useContext(AdminContext)
+    const {dToken, setDToken}=useContext(DoctorContext)
 
-  const logout = () => {
-    navigate('/');
-    aToken && setAToken('');
-    aToken && localStorage.removeItem('aToken');
-    dToken && setDToken('');
-    dToken && localStorage.removeItem('dToken');
-  };
 
+
+    const navigate= useNavigate()
+    const logout=()=>{
+        navigate('/')
+        aToken && setAToken('')
+        aToken && localStorage.removeItem('aToken')
+        dToken && setDToken('')
+        dToken && localStorage.removeItem('dToken')
+
+    }
   return (
-    <div className="flex justify-between items-center px-6 sm:px-10 py-4 border-b shadow-md bg-white">
-      {/* Logo and Role */}
-      <div className="flex items-center gap-4">
-        <img className="w-36 sm:w-40 cursor-pointer" src={assets.admin_logo} alt="Logo" />
-        <p className="text-sm font-semibold px-3 py-1 rounded-full border-2 border-gray-600 text-gray-600">
-          {aToken ? 'Admin' : 'Doctor'}
-        </p>
+    <div className='flex justify-between items-center px-4 py-1 sm:px-10 mt-1 border-b bg-white'>
+      <div className='flex items-center gap-3 text-xs'>
+        <img className='w-40 h-14 sm:w-40 cursor-pointer ' src={assets.admin_logo}></img>
+        <p className=' border px-2.5 py-0.5 rounded-full border-green-600'>{aToken ? 'Admin' : 'Doctor'}</p>
       </div>
-      
-      {/* Logout Button */}
-      <button
-        onClick={logout}
-        className="bg-[#16a34a] hover:bg-[#15803d] text-white text-sm px-6 py-2 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
-      >
-        Logout
-      </button>
+      <button onClick={logout} className='bg-primary text-white text-sm px-10 py-2 rounded-full'>Logout</button>
     </div>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
