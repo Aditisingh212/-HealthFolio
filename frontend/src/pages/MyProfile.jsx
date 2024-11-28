@@ -53,7 +53,7 @@ const MyProfile = () => {
             <label htmlFor="image" className="group cursor-pointer inline-block">
               <div className="relative w-44 h-44 rounded-2xl overflow-hidden shadow-2xl ring-4 ring-primary/10 transition-all duration-300 group-hover:ring-primary/30 group-hover:scale-105">
                 <img 
-                  className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110" 
+                  className=" w-full h-full object-cover transition-all duration-500 group-hover:scale-110 " 
                   src={image ? URL.createObjectURL(image) : userData.image}
                   alt="Profile"
                 />
@@ -114,8 +114,14 @@ const MyProfile = () => {
                 focus:border-primary/30 focus:outline-none transition-all duration-300
                 hover:border-gray-200"
                 type="text"
+                maxLength={13}
                 value={userData.phone}
-                onChange={(e) => setUserData((prev) => ({ ...prev, phone: e.target.value }))}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value === '' || (/^\+?\d*$/.test(value) && (value[0] === '+' ? value.indexOf('+', 1) === -1 : !value.includes('+')))) {
+                    setUserData((prev) => ({ ...prev, phone: value }));
+                  }
+                }}
               />
             ) : (
               <p className="text-primary font-medium">{userData.phone}</p>
@@ -190,6 +196,7 @@ const MyProfile = () => {
                 focus:border-primary/30 focus:outline-none transition-all duration-300
                 hover:border-gray-200"
                 type="date"
+                max={new Date().toISOString().split('T')[0]}
                 onChange={(e) => setUserData((prev) => ({ ...prev, dob: e.target.value }))}
                 value={userData.dob}
               />
