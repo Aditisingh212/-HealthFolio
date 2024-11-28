@@ -61,68 +61,58 @@ const MyAppointments = () => {
     },[token])
   
     return (
-    <div className="max-w-6xl mx-auto px-4">
-      <p className='text-2xl font-semibold text-gray-800 mt-12 mb-8'>
-        My Appointments
-      </p>
+    <div className="p-4">
+      <h2 className='pb-3 mt-8 text-xl font-medium text-zinc-700 border-b'>My Appointments</h2>
 
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {appointments.map((item, index) => (
-          <div 
-            key={index}
-            className='bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300'
-          >
-            <div className='grid grid-cols-[1fr_2fr] gap-6 sm:flex sm:gap-8'>
-              {/* Doctor Image */}
-              <div className="overflow-hidden rounded-xl">
-                <img 
-                  className='w-32 h-32 object-cover hover:scale-105 transition-transform duration-300' 
-                  src={item.docData.image}
-                  alt={item.docData.name}
-                />
+          <div key={index} className="bg-white rounded-md shadow-md overflow-hidden border border-green-200">
+            {/* Card Header with Image */}
+            <div className="relative h-48 overflow-hidden flex justify-center items-center">
+              <img 
+                className="w-1/2 h-full object-cover" 
+                src={item.docData.image} 
+                alt={item.docData.name}
+              />
+            </div>
+
+            {/* Card Content */}
+            <div className="p-4 text-center">
+              <h3 className="text-lg font-semibold text-neutral-800">{item.docData.name}</h3>
+              <p className="text-primary font-medium">{item.docData.speciality}</p>
+              
+              <div className="mt-3">
+                <p className="text-zinc-700 font-semibold text-sm">Address:</p>
+                <p className="text-xs text-zinc-600">{item.docData.address.line1}</p>
+                <p className="text-xs text-zinc-600">{item.docData.address.line2}</p>
               </div>
 
-              {/* Doctor Info */}
-              <div className='flex-1 space-y-2.5'>
-                <p className='text-lg font-semibold text-gray-800'>{item.docData.name}</p>
-                <p className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-                  {item.docData.speciality}
-                </p>
-                
-                <div className="mt-3">
-                  <p className='text-gray-700 font-medium'>Address:</p>
-                  <p className='text-sm text-gray-600'>{item.docData.address.line1}</p>
-                  <p className='text-sm text-gray-600'>{item.docData.address.line2}</p>
-                </div>
-                
-                <p className='text-sm mt-2'>
-                  <span className='text-gray-700 font-medium'>Date & Time: </span>
-                  <span className='text-gray-600'>{slotDateFormat(item.slotDate)} | {item.slotTime}</span>
+              <div className="mt-3">
+                <p className="text-zinc-700 font-semibold text-sm">Date & Time:</p>
+                <p className="text-xs text-zinc-600">
+                  {slotDateFormat(item.slotDate)} | {item.slotTime}
                 </p>
               </div>
 
-              {/* Action Buttons */}
-              <div className='flex flex-col gap-3 justify-end min-w-[180px]'>
+              {/* Card Actions */}
+              <div className="mt-4 space-y-2">
                 {!item.cancelled && (
                   <>
-                    <button className='px-6 py-2.5 rounded-xl text-sm text-gray-600 border-2 border-gray-200
-                      hover:bg-primary hover:text-white hover:border-primary transition-all duration-300'>
+                    <button className="w-full text-sm text-stone-500 py-2 border rounded hover:bg-primary hover:text-white transition-all duration-300">
                       Pay Online
                     </button>
                     <button 
-                      onClick={() => cancelAppointment(item._id)}
-                      className='px-6 py-2.5 rounded-xl text-sm text-gray-600 border-2 border-gray-200
-                      hover:bg-red-500 hover:text-white hover:border-red-500 transition-all duration-300'
+                      onClick={() => cancelAppointment(item._id)} 
+                      className="w-full text-sm text-stone-500 py-2 border rounded hover:bg-red-600 hover:text-white transition-all duration-300"
                     >
                       Cancel Appointment
                     </button>
                   </>
                 )}
                 {item.cancelled && (
-                  <div className='px-6 py-2.5 rounded-xl text-sm text-red-500 border-2 border-red-200 
-                    bg-red-50 text-center font-medium'>
+                  <button className="w-full py-2 border border-red-500 rounded text-red-500">
                     Appointment Cancelled
-                  </div>
+                  </button>
                 )}
               </div>
             </div>
