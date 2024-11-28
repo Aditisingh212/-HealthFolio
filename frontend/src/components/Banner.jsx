@@ -1,3 +1,4 @@
+
 import React from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +14,7 @@ const Banner = () => {
           <p className="mt-4"> With Certified Doctors Now</p>
         </div>
         <p className="text-sm sm:text-sm md:text-sm lg:text-sm pt-3 text-white">Discover a wide network of experienced and reliable healthcare professionals.</p>
-        <button onClick={()=>{navigate('/login/');scrollTo(0,0)}}  className="bg-white text-sm sm:text-base text-gray-600 px-8 py-2 rounded-md mt-4 hover:scale-105 transition-all duration-300">Create Account</button>
+        <button onClick={()=>{navigate('/login/');scrollTo(0,0)}}  className="bg-white text-sm sm:text-base text-gray-600 px-8 py-2 rounded-md mt-4 hover:scale-105 transition-all">Create Account</button>
       </div>
 
       {/*-----Right Side-----*/}
