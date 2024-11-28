@@ -1,72 +1,127 @@
-import React from "react";
-import { assets } from "../assets/assets";
+import React, { useState, useContext } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { AppContext } from '../context/AppContext';
 
-const About = () => {
+const Contact = () => {
+  const [feedback, setFeedback] = useState({
+    name: '',
+    email: '',
+    message: '',
+    rating: 5,
+  });
+  const { backendUrl, token } = useContext(AppContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(backendUrl + '/api/feedback', feedback, { headers: { token } });
+      if (data.success) {
+        toast.success('Thank you for your feedback!');
+        setFeedback({ name: '', email: '', message: '', rating: 5 }); // Reset form
+      }
+    } catch (error) {
+      toast.error('Failed to submit feedback');
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="text-center mb-16">
-        <h1 className="text-3xl font-bold text-gray-800">
-          ABOUT <span className="text-primary">US</span>
-        </h1>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-16 items-center mb-20">
-        <img 
-          className="w-full rounded-lg shadow-lg object-cover h-[480px]" 
-          src={assets.about_image}
-          alt="About Prescripto"
-        />
-        <div className="space-y-8 text-gray-600">
-          <p className="text-md leading-relaxed">
-            Welcome To Prescripto, Your Trusted Partner In Managing Your
-            Healthcare Needs Conveniently And Effectively. At Prescripto, We
-            Understand The Challenges Individuals Face When It Comes To
-            Scheduling Doctor Appointments And Managing Their Health Records.
-          </p>
-          <p className="text-md leading-relaxed">
-            Prescripto IS Commited To Excellence Is Healthcare Technology. We
-            Continuously Strive To Enhance Our Platform, Integrating The Latest
-            Advancements To Improve User Experience And Deliver Superior
-            Service. Whether You're Booking Your First Appointment Or Managing
-            Ongoing Care, Prescripto IS Here To Support You Every Step Of The
-            Way.
-          </p>
-          <div>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Our Vision</h2>
-            <p className="text-md leading-relaxed">
-              Our Vision At Prescripto Is To Create A Seamless Healthcare
-              Experience For Every User. We Aim To Bridge The Gap Between Patients
-              And Healthcare Providers, Making It Easier For You TO Access The Care
-              You Need, When You Need It.
-            </p>
+    <div className="min-h-screen py-12 px-6">
+      <div className="border border-primary max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="flex flex-col md:flex-row">
+          {/* Left Section - Contact Details */}
+          <div className="bg-gradient-to-br from-green-600 to-green-800 text-white p-6 md:w-1/3">
+            <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
+            <p className="mb-4 text-sm text-gray-200">We'd love to hear from you! Reach out with your feedback or inquiries.</p>
+            <div className="space-y-4 text-gray-100 text-sm">
+              <p>
+                <strong>Address:</strong> Chitkara University, Rajpura, Patiala, India
+              </p>
+              <p>
+                <strong>Phone:</strong> +91-78888-80XXX
+              </p>
+              <p>
+                <strong>Email:</strong> admin@prescripto.com
+              </p>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-gray-800">
-          WHY CHOOSE <span className="text-primary">US</span>
-        </h2>
-      </div>
+          {/* Right Section - Feedback Form */}
+          <div className="p-8 md:w-2/3">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Share Your Feedback</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={feedback.name}
+                  onChange={(e) => setFeedback({ ...feedback, name: e.target.value })}
+                  placeholder="John Doe"
+                  className="w-full border rounded-lg px-4 py-3 text-gray-700 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                />
+              </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
-        <div className="bg-white rounded-xl shadow-md p-8 hover:bg-primary group transition-all duration-300">
-          <h3 className="text-xl font-bold mb-4 group-hover:text-white">Efficiency</h3>
-          <p className="group-hover:text-white">Streamlined appointment scheduling that fits into your busy lifestyle.</p>
-        </div>
+              {/* Email Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  value={feedback.email}
+                  onChange={(e) => setFeedback({ ...feedback, email: e.target.value })}
+                  placeholder="john@example.com"
+                  className="w-full border rounded-lg px-4 py-3 text-gray-700 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                />
+              </div>
 
-        <div className="bg-white rounded-xl shadow-md p-8 hover:bg-primary group transition-all duration-300">
-          <h3 className="text-xl font-bold mb-4 group-hover:text-white">Convenience</h3>
-          <p className="group-hover:text-white">Access to a network of trusted healthcare professionals in your area.</p>
-        </div>
+              {/* Rating Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Rate Us</label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      type="button"
+                      key={star}
+                      onClick={() => setFeedback({ ...feedback, rating: star })}
+                      className={`text-3xl ${
+                        star <= feedback.rating ? 'text-yellow-400' : 'text-gray-300'
+                      } transition duration-300`}
+                    >
+                      ★
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-        <div className="bg-white rounded-xl shadow-md p-8 hover:bg-primary group transition-all duration-300">
-          <h3 className="text-xl font-bold mb-4 group-hover:text-white">Personalisation</h3>
-          <p className="group-hover:text-white">Tailored recommendations and reminders to help you stay on top of your health.</p>
+              {/* Message Input */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Your Message</label>
+                <textarea
+                  required
+                  rows="4"
+                  value={feedback.message}
+                  onChange={(e) => setFeedback({ ...feedback, message: e.target.value })}
+                  placeholder="Tell us about your experience..."
+                  className="w-full border rounded-lg px-4 py-3 text-gray-700 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+                ></textarea>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-800 transition duration-300"
+              >
+                Submit Feedback
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default About;
+export default Contact;
