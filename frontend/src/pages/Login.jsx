@@ -1,148 +1,3 @@
-// import React, { useContext, useEffect, useState } from "react";
-// import { AppContext } from "../context/AppContext";
-// import axios from "axios";
-// import { toast } from "react-toastify";
-// import { useNavigate } from "react-router-dom";
-
-// const Login = () => {
-
-//   const {backendUrl, token, setToken}=useContext(AppContext)
-//   const navigate =useNavigate()
-//   const [state, setState] = useState("Sign Up");
-
-//   const [email, setEmail] = useState("");
-//   const [password, setPassword] = useState("");
-//   const [name, setName] = useState("");
-
-// const validateName = (name) => {
-//   const regex = /^[a-zA-Z\s]+$/; // Allow only letters and spaces
-//   return regex.test(name);
-// }
-
-// const validateEmail = (email) => {
-//   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-//   return regex.test(email);
-// }
-
-// const validatePassword = (password) => {
-//   const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-//   return regex.test(password);
-// }
-
-//   const onSumbitHandler = async (event) => {
-//     event.preventDefault();
-
-//     try {
-//       if(state==='Sign Up'){
-//         const {data}= await axios.post(backendUrl+ '/api/user/register',{name,password,email})
-//         if(data.success){
-//           localStorage.setItem('token', data.token)
-//           setToken(data.token)
-//         }
-//         else{
-//           toast.error(data.message)
-//         }
-//       } else{
-
-//         const {data}= await axios.post(backendUrl+ '/api/user/login',{password,email})
-//         if(data.success){
-//           localStorage.setItem('token', data.token)
-//           setToken(data.token)
-//         }
-//         else{
-//           toast.error(data.message)
-//         }
-
-//       }
-//     } catch (error) {
-//       toast.error(error.message)
-//     }
-//   };
-
-//   useEffect(()=>{
-//     if(token){
-//       navigate('/')
-//     }
-//   }, [token])
-
-//   return (
-//     <form onSubmit={onSumbitHandler} className="min-h-[80vh] flex items-center">
-//       <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg">
-//         <p className="text-2xl font-semibold">
-//           {state === "Sign Up" ? "Create Account" : "Login"}
-//         </p>
-//         <p>
-//           {" "}
-//           Please {state === "Sign Up" ? "Sign up" : "Log in"} to book
-//           appointment{" "}
-//         </p>
-//         {state === "Sign Up" && (
-//           <div className="w-full">
-//             <p>Full Name</p>
-//             <input
-//               className="border border-zinc-300 rounded w-full p-2 mt-1"
-//               type="text"
-//               onChange={(e) => setName(e.target.value)}
-//               value={name}
-//               required
-//             ></input>
-//           </div>
-//         )}
-
-//         <div className="w-full">
-//           <p>Email</p>
-//           <input
-//             className="border border-zinc-300 rounded w-full p-2 mt-1"
-//             type="email"
-//             onChange={(e) => setEmail(e.target.value)}
-//             value={email}
-//             required
-//           ></input>
-//         </div>
-
-//         <div className="w-full">
-//           <p>Password</p>
-//           <input
-//             className="border border-zinc-300 rounded w-full p-2 mt-1"
-//             type="password required "
-//             onChange={(e) => setPassword(e.target.value)}
-//             value={password}
-//             required
-//           ></input>
-//         </div>
-
-//         <button type="submit" className="bg-primary text-white w-full py-2 rounded-md text-base">
-//           {state === "Sign Up" ? "Create Account" : "Login"}
-//         </button>
-//         {state === "Sign Up" ? (
-//           <p>
-//             Already have an account?{" "}
-//             <span
-//               onClick={() => setState("Login")}
-//               className="text-primary underline cursor-pointer"
-//             >
-//               Login here
-//             </span>{" "}
-//           </p>
-//         ) : (
-//           <p>
-//             Create a new account{" "}
-//             <span
-//               onClick={() => setState("Sign Up")}
-//               className="text-primary underline cursor-pointer"
-//             >
-//               {" "}
-//               Click here
-//             </span>
-//           </p>
-//         )}
-//       </div>
-//     </form>
-//   );
-// };
-
-// export default Login;
-
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
@@ -235,99 +90,93 @@ const Login = () => {
   }, [token]);
 
   return (
-    <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center">
-      <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg">
-        <p className="text-2xl font-semibold">
+    <form onSubmit={onSubmitHandler} className="min-h-[80vh] flex items-center bg-white">
+      <div className="flex flex-col gap-4 m-auto items-start p-10 min-w-[340px] sm:min-w-96 
+        border bg-white rounded-2xl text-zinc-700 text-sm shadow-xl
+        transition-all duration-300 hover:shadow-2xl">
+        <p className="text-3xl font-bold text-gray-800 mb-2">
           {state === "Sign Up" ? "Create Account" : "Login"}
         </p>
-        <p>
-          {" "}
-          Please {state === "Sign Up" ? "Sign up" : "Log in"} to book
-          appointment{" "}
+        <p className="text-gray-500 mb-4"> 
+          Please {state === "Sign Up" ? "sign up" : "log in"} to book appointment
         </p>
+
         {state === "Sign Up" && (
           <div className="w-full">
-            <p>Full Name</p>
+            <p className="font-medium mb-1">Full Name</p>
             <input
-              className={`border border-zinc-300 rounded w-full p-2 mt-1 ${
-                errors.name ? "border-red-500" : ""
-              }`} // Add error class if name is invalid
+              className={`border border-zinc-300 rounded-lg w-full p-3 mt-1
+                transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 
+                focus:border-primary ${errors.name ? "border-red-500" : "hover:border-gray-400"}`}
               type="text"
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                // Only allow letters and spaces
+                const value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                setName(value);
+              }}
               value={name}
               required
             />
-            {errors.name && <p className="text-red-500">{errors.name}</p>}
+            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
           </div>
         )}
 
         <div className="w-full">
-          <p>Email</p>
+          <p className="font-medium mb-1">Email</p>
           <input
-            className={`border border-zinc-300 rounded w-full p-2 mt-1 ${
-              errors.email ? "border-red-500" : ""
-            }`} // Add error class if email is invalid
+            className={`border border-zinc-300 rounded-lg w-full p-3 mt-1
+              transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 
+              focus:border-primary ${errors.email ? "border-red-500" : "hover:border-gray-400"}`}
             type="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             required
           />
-          {errors.email && <p className="text-red-500">{errors.email}</p>}
+          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
 
         <div className="w-full">
-          <p>Password</p>
-
+          <p className="font-medium mb-1">Password</p>
           <div className="relative">
             <input
-              className={`border border-zinc-300 rounded w-full p-2 mt-1 ${
-                errors.password ? "border-red-500" : ""
-              }`} // Add error class if password is invalid
+              className={`border border-zinc-300 rounded-lg w-full p-3 mt-1
+                transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 
+                focus:border-primary ${errors.password ? "border-red-500" : "hover:border-gray-400"}`}
               type={showPassword ? "text" : "password"}
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
             />
-
             <span
-              className="absolute right-3 top-3 cursor-pointer"
-              onClick={() => setShowPassword((prev) => !prev)} // Toggle showPassword on click
+              className="absolute right-3 top-[calc(50%-8px)] cursor-pointer text-gray-500 
+                hover:text-gray-700 text-sm transition-colors duration-200"
+              onClick={() => setShowPassword((prev) => !prev)}
             >
               {showPassword ? "Hide" : "Show"}
             </span>
           </div>
-
-          {errors.password && <p className="text-red-500">{errors.password}</p>}
+          {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
         </div>
 
         <button
           type="submit"
-          className="bg-primary text-white w-full py-2 rounded-md text-base"
+          className="bg-primary text-white w-full py-3 rounded-lg text-base font-medium
+            transition-all duration-200 hover:bg-primary/90 active:scale-[0.99]
+            shadow-md hover:shadow-lg mt-2"
         >
           {state === "Sign Up" ? "Create Account" : "Login"}
         </button>
-        {state === "Sign Up" ? (
-          <p>
-            Already have an account?{" "}
-            <span
-              onClick={() => setState("Login")}
-              className="text-primary underline cursor-pointer"
-            >
-              Login here
-            </span>{" "}
-          </p>
-        ) : (
-          <p>
-            Create a new account{" "}
-            <span
-              onClick={() => setState("Sign Up")}
-              className="text-primary underline cursor-pointer"
-            >
-              {" "}
-              Click here
-            </span>
-          </p>
-        )}
+
+        <p className="text-center w-full text-gray-600">
+          {state === "Sign Up" ? "Already have an account? " : "Create a new account "}
+          <span
+            onClick={() => setState(state === "Sign Up" ? "Login" : "Sign Up")}
+            className="text-primary font-medium underline cursor-pointer 
+              hover:text-primary/80 transition-colors duration-200"
+          >
+            {state === "Sign Up" ? "Login here" : "Click here"}
+          </span>
+        </p>
       </div>
     </form>
   );
