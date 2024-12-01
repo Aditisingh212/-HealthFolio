@@ -14,6 +14,7 @@ const Login = () => {
   const [name, setName] = useState("");
   const [errors, setErrors] = useState({}); // State for validation errors
   const [showPassword, setShowPassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const validateName = (name) => {
     const regex = /^[a-zA-Z\s]+$/; // Allow only letters and spaces
@@ -44,6 +45,10 @@ const Login = () => {
     return "";
   };
 
+  const validatePasswordMatch = (password, confirmPassword) => {
+    return password === confirmPassword ? "" : "Passwords do not match.";
+  };
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
@@ -53,12 +58,14 @@ const Login = () => {
       const nameError = validateName(name);
       const emailError = validateEmail(email);
       const passwordError = validatePassword(password);
+      const passwordMatchError = validatePasswordMatch(password, confirmPassword);
 
-      if (nameError || emailError || passwordError) {
+      if (nameError || emailError || passwordError || passwordMatchError) {
         setErrors({
           name: nameError,
           email: emailError,
           password: passwordError,
+          confirmPassword: passwordMatchError,
         });
         return; // Prevent form submission if there are errors
       }
@@ -157,6 +164,33 @@ const Login = () => {
           </div>
           {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
         </div>
+
+        {state === "Sign Up" && (
+          <div className="w-full">
+            <p className="font-medium mb-1">Confirm Password</p>
+            <div className="relative">
+              <input
+                className={`border border-zinc-300 rounded-lg w-full p-3 mt-1
+                  transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20 
+                  focus:border-primary ${errors.confirmPassword ? "border-red-500" : "hover:border-gray-400"}`}
+                type={showPassword ? "text" : "password"}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
+                required={state === "Sign Up"}
+              />
+              <span
+                className="absolute right-3 top-[calc(50%-8px)] cursor-pointer text-gray-500 
+                  hover:text-gray-700 text-sm transition-colors duration-200"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </span>
+            </div>
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+            )}
+          </div>
+        )}
 
         <button
           type="submit"
